@@ -1,10 +1,27 @@
-<input type="text" name="userName" [(ngModel)]="userName">
-<button (click)= getUserList()> search User</button>
-<br>
-
-<div>
-    <img src="{{users.avatar_url}}" alt="img">
+<div >
+  <input type="text" name="userName" [(ngModel)]="userName">
+  <button (click)="getOneUser()"> search User</button>
+  <div *ngIf=userList>
+    <img src="{{userList.avatar_url}}" alt="">
+    <p>{{userList.login}}</p>
+  </div>
+  <br>
 </div>
 
 
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
 
+      <!-- loop over our users and give them each a card -->
+      <div class="column is-4" *ngFor="let user of users">
+        <div class="card">
+          <div class="card-content">
+            {{ user.login}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

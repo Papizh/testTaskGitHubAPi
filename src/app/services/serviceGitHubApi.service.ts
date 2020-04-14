@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
-import { users} from 'src/app/models/users'
+import { User } from 'src/app/models/users'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceGitHubAPIService {
-  apiUrl = 'https://api.github.com/users/';
-   public userName = "";
 
+  apiUrl = 'https://api.github.com/users';
   constructor(private http: HttpClient) {
 
   }
-  public getUser(userName): Observable<any> {
-    return this.http.get<any>(this.apiUrl+ userName)
+
+  getUser(userName = ' '): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${userName}`);
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?per_page=10`)
   }
 
 }

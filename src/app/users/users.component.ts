@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ServiceGitHubAPIService } from '../services/serviceGitHubApi.service';
-import { users } from '../models/users'
+import { User } from '../models/users'
 import { from } from 'rxjs';
 
 @Component({
@@ -10,35 +10,36 @@ import { from } from 'rxjs';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  
   userName = ""
-  users: users[];
+  userList;
+  users: User[];
+  
   constructor(private serviceGit: ServiceGitHubAPIService) {
 
   }
 
 
   ngOnInit(): void {
-  }
+    this.getAllUser();
+  };
 
-  getUserList(userName) {
+
+  getOneUser() {
     this.serviceGit.getUser(this.userName)
       .subscribe(
         (response) => {
           console.log('response received')
-          this.users = response;
-          console.log(response)
+          this.userList = response;
+          console.log(this.userList)
         })
   }
 
-  
-  getUserAll(userName) {
-    this.serviceGit.getUser(this.userName)
-      .subscribe(
-        (response) => {
-          console.log('response received')
- 
-          console.log(response)
-        })
+  getAllUser(){
+    this.serviceGit.getUsers()
+    .subscribe(users => {
+      this.users = users;
+      console.log(users)
+    })
   }
 }
-
