@@ -13,7 +13,7 @@ export class UsersComponent implements OnInit {
   
   userName = ""
   userList;
-  users: User[];
+  users: User;
   
   constructor(private serviceGit: ServiceGitHubAPIService) {
 
